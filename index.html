@@ -376,10 +376,23 @@
   </div>
 
 <script>
-  // Cinematic opening
-  const cinematic=document.getElementById("cinematic");
-  document.getElementById("enterStory").addEventListener("click",()=>{cinematic.classList.add("hide");burst();});
-  const petalChars=["✿","❀","♡","♥"];
+    // Cinematic opening
+    const cinematic = document.getElementById("cinematic");
+    //  document.getElementById("enterStory").addEventListener("click",()=>{cinematic.classList.add("hide");burst();});
+    document.getElementById("enterStory").addEventListener("click", async () => {
+      cinematic.classList.add("hide");
+      burst();
+
+      try {
+        await musicAudio.play();
+        playing = true;
+        musicBtn.textContent = "❚❚";
+      } catch (e) {
+        console.log("Music could not start:", e);
+      }
+    });
+
+    const petalChars = ["✿", "❀", "♡", "♥"];
   for(let i=0;i<18;i++){const p=document.createElement("span");p.className="petal";p.textContent=petalChars[Math.floor(Math.random()*petalChars.length)];p.style.left=Math.random()*100+"%";p.style.animationDuration=(12+Math.random()*12)+"s";p.style.animationDelay=(-Math.random()*18)+"s";p.style.fontSize=(10+Math.random()*16)+"px";document.body.appendChild(p);}
   const proposalResult=document.getElementById("proposalResult");
   document.getElementById("yesForever").onclick=()=>{proposalResult.classList.add("show");burst();};
